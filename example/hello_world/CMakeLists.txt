@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 3.0)
 include(${SDK}/cmake/common.cmake)
 project(hello_world)
 
+
 INCLUDE_DIRECTORIES(${SDK}/lib/arch/include ${SDK}/lib/utils/include)
 # config self use headers
 header_directories(${SDK}/lib)
@@ -19,4 +20,10 @@ add_subdirectory(${SDK}/lib SDK)
 # compile project
 add_source_files(src/*.c)
 include(${SDK}/cmake/executable.cmake)
+
+
+add_custom_target(flash ${PORT}
+    COMMAND ${CMAKE_COMMAND} ARGS -DDEVICE=${DEVICE} -DTOOL=${TOOL} -DNAME=${CMAKE_PROJECT_NAME} -P ${TOOL}/flash/flash.cmake
+)
+
 
